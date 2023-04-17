@@ -17,31 +17,24 @@ a hacerlo de esta manera para probar parámetros en cursores).
 * Si el empleado no es MANAGER de ningún departamento debemos poner “No es jefe de nada”
 
 ## NO MIRÉIS LAS SOLUCIONES
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# SOLUCIONES
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+# SOLUCIÓN DEL 1
 
       DECLARE
       C1 CURSOR FOR SELECT first_name, last_name, salary FROM EMPLOYEES;
