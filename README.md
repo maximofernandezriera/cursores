@@ -17,24 +17,10 @@ a hacerlo de esta manera para probar parámetros en cursores).
 * Si el empleado no es MANAGER de ningún departamento debemos poner “No es jefe de nada”
 
 ## NO MIRÉIS LAS SOLUCIONES
-|
-|
-|
-|
-|
-|
-|
-|
-|
-|
-|
-|
-|
-|
-|
-|
-|
+
 # SOLUCIÓN DEL 1
+
+Esta es una posible solución sin encapsular el código en un procedimiento.
 
       DECLARE
       C1 CURSOR FOR SELECT first_name, last_name, salary FROM EMPLOYEES;
@@ -49,7 +35,20 @@ a hacerlo de esta manera para probar parámetros en cursores).
       END LOOP;
       END;
 
+Esta es una solución en un procedimiento. Comenzamos declarando un cursor y definiendo una variable de registro para almacenar los valores del cursor. Luego, el procedimiento ejecuta un bucle FOR que recorre todas las filas del cursor y muestra el nombre y el salario de cada empleado. Si el nombre es "Steven King", se lanza una excepción. Finalmente, el procedimiento se puede llamar posteriormente utilizando la sintaxis "CALL mostrar_salarios();".
 
+      CREATE OR REPLACE PROCEDURE mostrar_salarios() AS
+      C1 CURSOR FOR SELECT first_name, last_name, salary FROM employees;
+      i RECORD;
+      BEGIN
+      FOR i IN C1 LOOP
+      IF i.first_name = 'Steven' AND i.last_name = 'King' THEN
+      RAISE EXCEPTION 'El salario del jefe no puede ser visto';
+      ELSE
+      RAISE NOTICE '%: % DLS', i.first_name || ' ' || i.last_name, i.salary;
+      END IF;
+      END LOOP;
+      END;
 
 
 
