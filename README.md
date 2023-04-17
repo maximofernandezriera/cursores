@@ -15,3 +15,62 @@ a hacerlo de esta manera para probar parámetros en cursores).
 * Por cada fila del primero, abrimos el segundo cursor pasando el EMPLOYEE_ID
 * Si el empleado es MANAGER_ID en algún departamento debemos pintar el Nombre del departamento y el nombre del MANAGER_ID diciendo que es el jefe.
 * Si el empleado no es MANAGER de ningún departamento debemos poner “No es jefe de nada”
+
+## NO MIRÉIS LAS SOLUCIONES
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# SOLUCIONES
+
+      DECLARE
+      C1 CURSOR FOR SELECT first_name, last_name, salary FROM EMPLOYEES;
+      i RECORD;
+      BEGIN
+      FOR i IN C1 LOOP
+      IF i.first_name = 'Steven' AND i.last_name = 'King' THEN
+      RAISE EXCEPTION 'El salario del jefe no puede ser visto';
+      ELSE
+      RAISE NOTICE '%: % DLS', i.first_name || ' ' || i.last_name, i.salary;
+      END IF;
+      END LOOP;
+      END;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
