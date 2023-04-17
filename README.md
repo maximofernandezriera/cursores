@@ -51,7 +51,26 @@ Esta es una solución en un procedimiento. Comenzamos declarando un cursor y def
       END;
 
 
+# SOLUCIÓN DEL 2
 
+      CREATE OR REPLACE FUNCTION mostrar_jefes() RETURNS VOID AS
+      EMPLEADO employees%ROWTYPE;
+      DEPARTAMENTO departments%ROWTYPE;
+      jefe departments.manager_id%TYPE;
+      C1 CURSOR FOR SELECT * FROM employees;
+      C2 CURSOR (j departments.manager_id%TYPE) FOR SELECT * FROM departments WHERE manager_id=j;
+      BEGIN
+      FOR EMPLEADO IN C1 LOOP
+      OPEN C2(EMPLEADO.employee_id);
+      FETCH C2 INTO DEPARTAMENTO;
+      IF NOT FOUND THEN
+      RAISE NOTICE '% No es JEFE de NADA', EMPLEADO.first_name;
+      ELSE
+      RAISE NOTICE '% ES JEFE DEL DEPARTAMENTO %', EMPLEADO.first_name, DEPARTAMENTO.department_name;
+      END IF;
+      CLOSE C2;
+      END LOOP;
+      END;
 
 
 
