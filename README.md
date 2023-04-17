@@ -2,7 +2,7 @@
 
 Una vez revisada la documentación (https://www.postgresqltutorial.com/postgresql-plpgsql/plpgsql-cursor/) podemos aboradar algunos ejercicios más complejos:
 
-NOTA: El esquema de base de datos a utilizar se encuentra en un script sql en este mismo repositorio con el nombre: tablas_hr.sql.
+NOTA: El esquema de base de datos a utilizar se encuentra en un script sql en este mismo repositorio con el nombre: tablas_hr.sql. Tomado de https://www.sqltutorial.org/sql-sample-database/
 
 1. Implementar un programa que tenga un cursor que vaya visualizando los salarios de los empleados. Si en el cursor aparece el jefe (Steven King) se debe generar un RAISE EXCEPTION indicando que el sueldo del jefe no se puede ver.
 
