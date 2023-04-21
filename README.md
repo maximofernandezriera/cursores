@@ -35,9 +35,45 @@ Esta es una posible solución sin encapsular el código en un procedimiento.
       END LOOP;
       END;
 
-Esta es una solución en un procedimiento. Comenzamos declarando un cursor y definiendo una variable de registro para almacenar los valores del cursor. Luego, el procedimiento ejecuta un bucle FOR que recorre todas las filas del cursor y muestra el nombre y el salario de cada empleado. Si el nombre es "Steven King", se lanza una excepción. Finalmente, el procedimiento se puede llamar posteriormente utilizando la sintaxis "CALL mostrar_salarios();".
+Esta es una solución en un procedimiento. Comenzamos declarando un cursor y definiendo una variable de registro para almacenar los valores del cursor. Luego, el procedimiento ejecuta un bucle FOR que recorre todas las filas del cursor y muestra el nombre y el salario de cada empleado. Si el nombre es "Steven King", se lanza una excepción. Finalmente, el procedimiento se puede llamar posteriormente utilizando la sintaxis "call mostrar_salarios();".
 
-      create or replace function mostrar_salarios()
+## Como procedimiento
+
+      create or replace procedure mostrar_salarios_procedure()
+          language plpgsql
+      as $$
+      declare
+          C1 CURSOR FOR SELECT first_name, last_name, salary FROM employees;
+          i RECORD;
+      begin
+          FOR i IN C1 LOOP
+                  IF i.first_name = 'Steven' AND i.last_name = 'King' THEN
+                      RAISE EXCEPTION 'El salario del jefe no puede ser visto';
+                  ELSE
+                      RAISE NOTICE '%: % DLS', i.first_name || ' ' || i.last_name, i.salary;
+                  END IF;
+              END LOOP;
+      end;$$
+
+      create or replace function mostrar_salarios() RETURNS VOID
+          language plpgsql
+      as $$
+      declare
+          C1 CURSOR FOR SELECT first_name, last_name, salary FROM employees;
+          i RECORD;
+      begin
+          FOR i IN C1 LOOP
+                  IF i.first_name = 'Steven' AND i.last_name = 'King' THEN
+                      RAISE EXCEPTION 'El salario del jefe no puede ser visto';
+                  ELSE
+                      RAISE NOTICE '%: % DLS', i.first_name || ' ' || i.last_name, i.salary;
+                  END IF;
+              END LOOP;
+      end;$$
+      
+## Como función
+      
+            create or replace function mostrar_salarios() RETURNS VOID
           language plpgsql
       as $$
       declare
