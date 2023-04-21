@@ -20,8 +20,6 @@ NOTA: El esquema de base de datos a utilizar se encuentra en un script sql en es
 
 Esta es una posible solución sin encapsular el código en un procedimiento.
 
-
-      set autocommit off
       DECLARE
       C1 CURSOR FOR SELECT first_name, last_name, salary FROM EMPLOYEES;
       i RECORD;
@@ -37,18 +35,21 @@ Esta es una posible solución sin encapsular el código en un procedimiento.
 
 Esta es una solución en un procedimiento. Comenzamos declarando un cursor y definiendo una variable de registro para almacenar los valores del cursor. Luego, el procedimiento ejecuta un bucle FOR que recorre todas las filas del cursor y muestra el nombre y el salario de cada empleado. Si el nombre es "Steven King", se lanza una excepción. Finalmente, el procedimiento se puede llamar posteriormente utilizando la sintaxis "CALL mostrar_salarios();".
 
-      CREATE OR REPLACE PROCEDURE mostrar_salarios() AS
-      C1 CURSOR FOR SELECT first_name, last_name, salary FROM employees;
-      i RECORD;
-      BEGIN
-      FOR i IN C1 LOOP
-      IF i.first_name = 'Steven' AND i.last_name = 'King' THEN
-      RAISE EXCEPTION 'El salario del jefe no puede ser visto';
-      ELSE
-      RAISE NOTICE '%: % DLS', i.first_name || ' ' || i.last_name, i.salary;
-      END IF;
-      END LOOP;
-      END;
+      create or replace function mostrar_salarios()
+          language plpgsql
+      as $$
+      declare
+          C1 CURSOR FOR SELECT first_name, last_name, salary FROM employees;
+          i RECORD;
+      begin
+          FOR i IN C1 LOOP
+                  IF i.first_name = 'Steven' AND i.last_name = 'King' THEN
+                      RAISE EXCEPTION 'El salario del jefe no puede ser visto';
+                  ELSE
+                      RAISE NOTICE '%: % DLS', i.first_name || ' ' || i.last_name, i.salary;
+                  END IF;
+              END LOOP;
+      end;$$
 
 
 # SOLUCIÓN DEL 2
