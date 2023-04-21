@@ -14,6 +14,8 @@ NOTA: El esquema de base de datos a utilizar se encuentra en un script sql en es
 * Si el empleado es MANAGER_ID en algún departamento debemos pintar el Nombre del departamento y el nombre del MANAGER_ID diciendo que es el jefe.
 * Si el empleado no es MANAGER de ningún departamento debemos poner “No es jefe de nada”
 
+3. Crear un cursor con parámetros que pasando el número de departamento visualice el número de empleados de ese departamento
+
 ## NO MIRÉIS LAS SOLUCIONES
 
 # SOLUCIÓN DEL 1
@@ -55,6 +57,9 @@ Esta es una solución en un procedimiento. Comenzamos declarando un cursor y def
 # SOLUCIÓN DEL 2
 
       CREATE OR REPLACE FUNCTION mostrar_jefes() RETURNS VOID AS
+       language plpgsql
+      as $$
+      declare
       EMPLEADO employees%ROWTYPE;
       DEPARTAMENTO departments%ROWTYPE;
       jefe departments.manager_id%TYPE;
@@ -71,7 +76,9 @@ Esta es una solución en un procedimiento. Comenzamos declarando un cursor y def
       END IF;
       CLOSE C2;
       END LOOP;
-      END;
+      END;$$
+      
+ # EL 3 NO ESTÁ SOLIUCIONADO, LO HAREMOS EN CLASE.
 
 
 Esta es la solución en una función. Primero, se declaran las variables para almacenar la información de los empleados, los departamentos y los identificadores de los jefes de departamento. Luego, se definen dos cursores: "C1" para recorrer la tabla "employees" y "C2" para recorrer la tabla "departments" utilizando el identificador del jefe de departamento.
