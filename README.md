@@ -28,7 +28,7 @@ Esta es una posible solución sin encapsular el código en un procedimiento.
       BEGIN
       FOR i IN C1 LOOP
       IF i.first_name = 'Steven' AND i.last_name = 'King' THEN
-      RAISE EXCEPTION 'El salario del jefe no puede ser visto';
+      RAISE NOTICE 'El salario del jefe no puede ser visto';
       ELSE
       RAISE NOTICE '%: % DLS', i.first_name || ' ' || i.last_name, i.salary;
       END IF;
@@ -48,7 +48,7 @@ Esta es una solución en un procedimiento. Comenzamos declarando un cursor y def
       begin
           FOR i IN C1 LOOP
                   IF i.first_name = 'Steven' AND i.last_name = 'King' THEN
-                      RAISE EXCEPTION 'El salario del jefe no puede ser visto';
+                      RAISE NOTICE 'El salario del jefe no puede ser visto';
                   ELSE
                       RAISE NOTICE '%: % DLS', i.first_name || ' ' || i.last_name, i.salary;
                   END IF;
@@ -66,7 +66,7 @@ Esta es una solución en un procedimiento. Comenzamos declarando un cursor y def
       begin
           FOR i IN C1 LOOP
                   IF i.first_name = 'Steven' AND i.last_name = 'King' THEN
-                      RAISE EXCEPTION 'El salario del jefe no puede ser visto';
+                      RAISE NOTICE 'El salario del jefe no puede ser visto';
                   ELSE
                       RAISE NOTICE '%: % DLS', i.first_name || ' ' || i.last_name, i.salary;
                   END IF;
