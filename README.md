@@ -54,22 +54,6 @@ Esta es una solución en un procedimiento. Comenzamos declarando un cursor y def
                   END IF;
               END LOOP;
       end;$$
-
-      create or replace function mostrar_salarios() RETURNS VOID
-          language plpgsql
-      as $$
-      declare
-          C1 CURSOR FOR SELECT first_name, last_name, salary FROM employees;
-          i RECORD;
-      begin
-          FOR i IN C1 LOOP
-                  IF i.first_name = 'Steven' AND i.last_name = 'King' THEN
-                      RAISE EXCEPTION 'El salario del jefe no puede ser visto';
-                  ELSE
-                      RAISE NOTICE '%: % DLS', i.first_name || ' ' || i.last_name, i.salary;
-                  END IF;
-              END LOOP;
-      end;$$
       
 ## Como función
       
